@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guide Connect MCP</title>
+    <meta
+      name="description"
+      content="Helper guide for connecting IDA Pro with Codex via MCP on macOS."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand">
+          <span class="brand-mark">M</span>
+          <span>Guide Connect MCP</span>
+        </div>
+        <nav class="nav-links">
+          <a href="#overview">Overview</a>
+          <a href="#setup">Setup</a>
+          <a href="#troubleshooting">Troubleshooting</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">IDA Pro + Codex + MCP</span>
+            <h1>Connect IDA Pro to Codex on macOS.</h1>
+            <p>
+              A fast, practical guide for enabling the MCP plugin in IDA Pro and connecting it to VS Code/Codex.
+            </p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#setup">Start Setup</a>
+              <a class="btn secondary" href="README.md">Read Guide</a>
+            </div>
+            <ul class="hero-points">
+              <li>Mac setup</li>
+              <li>IDA plugin install</li>
+              <li>Codex MCP config</li>
+            </ul>
+          </div>
+
+          <div class="hero-card">
+            <div class="card-header">
+              <span class="status-dot"></span>
+              <span>Quick check</span>
+            </div>
+            <div class="terminal">
+              <div class="terminal-row"><span class="prompt">$</span> uv sync</div>
+              <div class="terminal-row"><span class="prompt">$</span> ida-pro-mcp --install</div>
+              <div class="terminal-row"><span class="prompt">$</span> curl http://127.0.0.1:13337/mcp</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="overview" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow dark">Overview</span>
+            <h2>What you need</h2>
+          </div>
+          <div class="feature-grid">
+            <article class="feature">
+              <h3>IDA Pro</h3>
+              <p>Use a professional version of IDA, not the free edition.</p>
+            </article>
+            <article class="feature">
+              <h3>Python 3.11+</h3>
+              <p>Make sure the Python environment is valid for IDA.</p>
+            </article>
+            <article class="feature">
+              <h3>Codex</h3>
+              <p>Run Codex in VS Code and connect it to the HTTP MCP server.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="setup" class="section alt">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow dark">Setup</span>
+            <h2>Connection steps</h2>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <span class="step-no">01</span>
+              <div>
+                <h3>Activate IDA library</h3>
+                <pre><code>uv run "/Applications/IDA Professional 9.4.app/Contents/MacOS/idalib/python/py-activate-idalib.py"</code></pre>
+              </div>
+            </div>
+
+            <div class="step">
+              <span class="step-no">02</span>
+              <div>
+                <h3>Install dependencies</h3>
+                <pre><code>cd ida-pro-mcp
+uv sync</code></pre>
+              </div>
+            </div>
+
+            <div class="step">
+              <span class="step-no">03</span>
+              <div>
+                <h3>Install the IDA plugin</h3>
+                <pre><code>pip install https://github.com/mrexodia/ida-pro-mcp/archive/refs/heads/main.zip
+ida-pro-mcp --install</code></pre>
+              </div>
+            </div>
+
+            <div class="step">
+              <span class="step-no">04</span>
+              <div>
+                <h3>Choose transport</h3>
+                <p>Select <strong>Streamable HTTP (recommended)</strong> and <strong>Global (user-level)</strong>.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <span class="step-no">05</span>
+              <div>
+                <h3>Configure Codex in VS Code</h3>
+                <pre><code>{
+  "github.copilot.advanced": {
+    "mcpServers": {
+      "ida-pro-mcp": {
+        "type": "http",
+        "url": "http://127.0.0.1:13337/mcp"
+      }
+    }
+  }
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="troubleshooting" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow dark">Troubleshooting</span>
+            <h2>Common issues</h2>
+          </div>
+
+          <div class="issue-grid">
+            <div class="issue">
+              <h3>No MCP tool available</h3>
+              <p>Check that IDA is running, the database is open, and the server is listening on <code>127.0.0.1:13337</code>.</p>
+            </div>
+            <div class="issue">
+              <h3>Connection refused</h3>
+              <p>Run this check:</p>
+              <pre><code>curl http://127.0.0.1:13337/mcp</code></pre>
+            </div>
+            <div class="issue">
+              <h3>Python mismatch</h3>
+              <p>Activate the correct IDA Python library with <code>py-activate-idalib.py</code>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-row">
+        <div>Guide Connect MCP</div>
+        <a href="https://github.com/mrexodia/ida-pro-mcp" target="_blank" rel="noreferrer">IDA Pro MCP Repo</a>
+      </div>
+    </footer>
+  </body>
+</html>
