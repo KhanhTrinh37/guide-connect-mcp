@@ -117,6 +117,7 @@
         <nav class="flex items-center gap-6 text-sm font-medium text-muted-foreground">
           <a href="#overview" class="transition-colors hover:text-foreground">Overview</a>
           <a href="#setup" class="transition-colors hover:text-foreground">Setup</a>
+          <a href="#troubleshooting" class="transition-colors hover:text-foreground">Troubleshooting</a>
         </nav>
       </div>
     </header>
@@ -299,6 +300,37 @@ ida-pro-mcp --install</code></pre>
         </div>
       </section>
 
+      <!-- Troubleshooting Section -->
+      <section id="troubleshooting" class="py-12 border-t border-border/40 mb-12">
+        <div class="flex flex-col gap-2 mb-8">
+          <h2 class="text-2xl font-bold tracking-tight">Troubleshooting</h2>
+          <p class="text-muted-foreground text-sm">Solutions for common issues.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="rounded-xl border bg-card text-card-foreground shadow-sm p-6">
+            <h3 class="font-semibold leading-none tracking-tight mb-3">No MCP tool available</h3>
+            <p class="text-sm text-muted-foreground">Ensure IDA is currently running, a database is open, and the local server is listening on <code class="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-semibold">127.0.0.1:13337</code>.</p>
+          </div>
+
+          <div class="rounded-xl border bg-card text-card-foreground shadow-sm p-6">
+            <h3 class="font-semibold leading-none tracking-tight mb-3">Connection refused</h3>
+            <p class="text-sm text-muted-foreground mb-3">Run this check to see if the server responds properly:</p>
+            <div class="rounded-md border bg-zinc-950 overflow-hidden">
+              <div class="flex items-center justify-between border-b border-white/5 bg-zinc-900/50 px-3 py-1.5">
+                <span class="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Shell</span>
+                <button onclick="copyCode(this)" class="inline-flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors">
+                  <svg class="icon-copy w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <svg class="icon-check w-3 h-3 text-green-500 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </button>
+              </div>
+              <div class="p-3">
+                <pre class="text-xs text-zinc-50 font-mono"><code>curl http://127.0.0.1:13337/mcp</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Footer -->
