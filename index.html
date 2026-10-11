@@ -9,9 +9,9 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     
-    <!-- Tailwind CSS (CDN for Shadcn UI styling) -->
+    <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -20,28 +20,42 @@
           extend: {
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
-              mono: ['Fira Code', 'monospace'],
+              mono: ['JetBrains Mono', 'monospace'],
             },
             colors: {
-              background: "hsl(var(--background))",
-              foreground: "hsl(var(--foreground))",
-              card: "hsl(var(--card))",
-              "card-foreground": "hsl(var(--card-foreground))",
-              popover: "hsl(var(--popover))",
-              "popover-foreground": "hsl(var(--popover-foreground))",
-              primary: "hsl(var(--primary))",
-              "primary-foreground": "hsl(var(--primary-foreground))",
-              secondary: "hsl(var(--secondary))",
-              "secondary-foreground": "hsl(var(--secondary-foreground))",
-              muted: "hsl(var(--muted))",
-              "muted-foreground": "hsl(var(--muted-foreground))",
-              accent: "hsl(var(--accent))",
-              "accent-foreground": "hsl(var(--accent-foreground))",
-              destructive: "hsl(var(--destructive))",
-              "destructive-foreground": "hsl(var(--destructive-foreground))",
               border: "hsl(var(--border))",
               input: "hsl(var(--input))",
               ring: "hsl(var(--ring))",
+              background: "hsl(var(--background))",
+              foreground: "hsl(var(--foreground))",
+              primary: {
+                DEFAULT: "hsl(var(--primary))",
+                foreground: "hsl(var(--primary-foreground))",
+              },
+              secondary: {
+                DEFAULT: "hsl(var(--secondary))",
+                foreground: "hsl(var(--secondary-foreground))",
+              },
+              destructive: {
+                DEFAULT: "hsl(var(--destructive))",
+                foreground: "hsl(var(--destructive-foreground))",
+              },
+              muted: {
+                DEFAULT: "hsl(var(--muted))",
+                foreground: "hsl(var(--muted-foreground))",
+              },
+              accent: {
+                DEFAULT: "hsl(var(--accent))",
+                foreground: "hsl(var(--accent-foreground))",
+              },
+              popover: {
+                DEFAULT: "hsl(var(--popover))",
+                foreground: "hsl(var(--popover-foreground))",
+              },
+              card: {
+                DEFAULT: "hsl(var(--card))",
+                foreground: "hsl(var(--card-foreground))",
+              },
             },
             borderRadius: {
               lg: "var(--radius)",
@@ -55,227 +69,64 @@
     <style type="text/tailwindcss">
       @layer base {
         :root {
-          --background: 0 0% 100%;
-          --foreground: 222.2 84% 4.9%;
-          --card: 0 0% 100%;
-          --card-foreground: 222.2 84% 4.9%;
-          --primary: 221.2 83.2% 53.3%;
-          --primary-foreground: 210 40% 98%;
-          --muted: 210 40% 96.1%;
-          --muted-foreground: 215.4 16.3% 46.9%;
-          --border: 214.3 31.8% 91.4%;
+          /* Shadcn Zinc Dark Theme */
+          --background: 240 10% 3.9%;
+          --foreground: 0 0% 98%;
+          --card: 240 10% 3.9%;
+          --card-foreground: 0 0% 98%;
+          --popover: 240 10% 3.9%;
+          --popover-foreground: 0 0% 98%;
+          --primary: 0 0% 98%;
+          --primary-foreground: 240 5.9% 10%;
+          --secondary: 240 3.7% 15.9%;
+          --secondary-foreground: 0 0% 98%;
+          --muted: 240 3.7% 15.9%;
+          --muted-foreground: 240 5% 64.9%;
+          --accent: 240 3.7% 15.9%;
+          --accent-foreground: 0 0% 98%;
+          --destructive: 0 62.8% 30.6%;
+          --destructive-foreground: 0 0% 98%;
+          --border: 240 3.7% 15.9%;
+          --input: 240 3.7% 15.9%;
+          --ring: 240 4.9% 83.9%;
           --radius: 0.5rem;
         }
-        .dark {
-          --background: 222.2 84% 4.9%;
-          --foreground: 210 40% 98%;
-          --card: 222.2 84% 4.9%;
-          --card-foreground: 210 40% 98%;
-          --primary: 217.2 91.2% 59.8%;
-          --primary-foreground: 222.2 47.4% 11.2%;
-          --muted: 217.2 32.6% 17.5%;
-          --muted-foreground: 215 20.2% 65.1%;
-          --border: 217.2 32.6% 17.5%;
-        }
         body {
-          @apply bg-background text-foreground antialiased;
+          @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
         }
       }
 
-      /* Custom scrollbar for code blocks */
-      pre::-webkit-scrollbar {
-        height: 8px;
-      }
-      pre::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      pre::-webkit-scrollbar-thumb {
-        @apply bg-muted-foreground/30 rounded-full;
-      }
+      /* Custom scrollbar for pre blocks */
+      pre::-webkit-scrollbar { height: 6px; }
+      pre::-webkit-scrollbar-track { background: transparent; }
+      pre::-webkit-scrollbar-thumb { @apply bg-muted-foreground/30 rounded-full; }
+      pre::-webkit-scrollbar-thumb:hover { @apply bg-muted-foreground/50; }
     </style>
   </head>
   <body class="min-h-screen flex flex-col">
     
-    <!-- Navbar -->
+    <!-- Navbar Component -->
     <header class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div class="container mx-auto px-4 sm:px-8 h-14 flex items-center justify-between">
+      <div class="container mx-auto px-4 sm:px-8 max-w-5xl h-14 flex items-center justify-between">
         <div class="flex items-center gap-2 font-bold tracking-tight">
-          <div class="flex h-7 w-7 items-center justify-center rounded bg-primary text-primary-foreground">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+          <div class="flex h-6 w-6 items-center justify-center rounded bg-primary text-primary-foreground">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
           </div>
-          Guide Connect MCP
+          <span class="hidden sm:inline-block">Guide Connect MCP</span>
         </div>
         <nav class="flex items-center gap-6 text-sm font-medium text-muted-foreground">
-          <a href="#overview" class="hover:text-foreground transition-colors">Overview</a>
-          <a href="#setup" class="hover:text-foreground transition-colors">Setup</a>
-          <a href="#troubleshooting" class="hover:text-foreground transition-colors">Help</a>
+          <a href="#overview" class="transition-colors hover:text-foreground">Overview</a>
+          <a href="#setup" class="transition-colors hover:text-foreground">Setup</a>
+          <a href="#troubleshooting" class="transition-colors hover:text-foreground">Troubleshooting</a>
         </nav>
       </div>
     </header>
 
-    <main class="flex-1">
+    <main class="flex-1 container mx-auto px-4 sm:px-8 max-w-5xl">
+      
       <!-- Hero Section -->
-      <section class="container mx-auto px-4 sm:px-8 py-16 md:py-24 lg:py-32">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div class="flex flex-col space-y-4">
-            <div class="inline-flex w-fit items-center rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
-              IDA Pro + Codex + MCP
-            </div>
-            <h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl">
-              Connect IDA Pro to Codex on macOS.
-            </h1>
-            <p class="max-w-[600px] text-lg text-muted-foreground">
-              A fast, practical guide for enabling the MCP plugin in IDA Pro and connecting it to VS Code/Codex.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-3 pt-4">
-              <a href="#setup" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-8 py-2">
-                Start Setup
-              </a>
-              <a href="README.md" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-8 py-2">
-                Read Guide
-              </a>
-            </div>
-          </div>
-
-          <!-- Hero Card (Shadcn style) -->
-          <div class="rounded-xl border border-border bg-card text-card-foreground shadow">
-            <div class="flex flex-col space-y-1.5 p-6 border-b border-border/50">
-              <div class="flex items-center gap-2 font-semibold leading-none tracking-tight">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                </span>
-                Quick Check
-              </div>
-            </div>
-            <div class="p-6">
-              <div class="space-y-2 font-mono text-sm text-muted-foreground">
-                <div><span class="text-primary select-none mr-2">$</span>uv sync</div>
-                <div><span class="text-primary select-none mr-2">$</span>ida-pro-mcp --install</div>
-                <div><span class="text-primary select-none mr-2">$</span>curl http://127.0.0.1:13337/mcp</div>
-              </div>
-            </div>
-          </div>
+      <section class="py-16 md:py-24 lg:py-28 flex flex-col items-start gap-4">
+        <div class="inline-flex items-center rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-semibold text-muted-foreground transition-colors hover:bg-muted">
+          IDA Pro + Codex + MCP
         </div>
-      </section>
-
-      <!-- Overview Section -->
-      <section id="overview" class="container mx-auto px-4 sm:px-8 py-16 border-t border-border/40 bg-muted/20">
-        <div class="flex flex-col space-y-2 mb-8">
-          <h2 class="text-3xl font-bold tracking-tight">Requirements</h2>
-          <p class="text-muted-foreground">What you need before getting started.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm p-6">
-            <h3 class="font-semibold leading-none tracking-tight mb-3">IDA Pro</h3>
-            <p class="text-sm text-muted-foreground">Use a professional version of IDA, not the free edition.</p>
-          </div>
-          <div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm p-6">
-            <h3 class="font-semibold leading-none tracking-tight mb-3">Python 3.11+</h3>
-            <p class="text-sm text-muted-foreground">Make sure the Python environment is valid for IDA.</p>
-          </div>
-          <div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm p-6">
-            <h3 class="font-semibold leading-none tracking-tight mb-3">Codex / VS Code</h3>
-            <p class="text-sm text-muted-foreground">Run Codex in VS Code and connect it to the HTTP MCP server.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Setup Section with Shadcn Code Blocks -->
-      <section id="setup" class="container mx-auto px-4 sm:px-8 py-16 border-t border-border/40">
-        <div class="flex flex-col space-y-2 mb-10">
-          <h2 class="text-3xl font-bold tracking-tight">Connection Steps</h2>
-          <p class="text-muted-foreground">Follow these steps to connect IDA Pro with Codex.</p>
-        </div>
-
-        <div class="relative border-l border-border ml-3 md:ml-4 space-y-12 pb-4">
-          
-          <!-- Step 1 -->
-          <div class="relative pl-8 md:pl-10">
-            <div class="absolute -left-4 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-sm font-medium">1</div>
-            <h3 class="text-xl font-semibold tracking-tight mb-4">Activate IDA library</h3>
-            
-            <!-- THE SHADCN CODE BLOCK -->
-            <div class="relative group rounded-lg border border-border bg-[#0d1117] overflow-hidden">
-              <button onclick="copyCode(this)" class="absolute right-3 top-3 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-white/10 hover:text-white h-8 w-8 text-zinc-400 bg-transparent z-10" title="Copy code">
-                <!-- Lucide Copy Icon -->
-                <svg class="icon-copy w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                <!-- Lucide Check Icon (hidden by default) -->
-                <svg class="icon-check w-4 h-4 text-green-500 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              </button>
-              <pre class="p-4 pr-14 text-sm font-mono text-zinc-50 overflow-x-auto"><code>uv run "/Applications/IDA Professional 9.4.app/Contents/MacOS/idalib/python/py-activate-idalib.py"</code></pre>
-            </div>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="relative pl-8 md:pl-10">
-            <div class="absolute -left-4 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-sm font-medium">2</div>
-            <h3 class="text-xl font-semibold tracking-tight mb-4">Install dependencies</h3>
-            
-            <div class="relative group rounded-lg border border-border bg-[#0d1117] overflow-hidden">
-              <button onclick="copyCode(this)" class="absolute right-3 top-3 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-white/10 hover:text-white h-8 w-8 text-zinc-400 bg-transparent z-10" title="Copy code">
-                <svg class="icon-copy w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                <svg class="icon-check w-4 h-4 text-green-500 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              </button>
-              <pre class="p-4 pr-14 text-sm font-mono text-zinc-50 overflow-x-auto"><code>cd ida-pro-mcp
-uv sync</code></pre>
-            </div>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="relative pl-8 md:pl-10">
-            <div class="absolute -left-4 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-sm font-medium">3</div>
-            <h3 class="text-xl font-semibold tracking-tight mb-4">Install the IDA plugin</h3>
-            
-            <div class="relative group rounded-lg border border-border bg-[#0d1117] overflow-hidden">
-              <button onclick="copyCode(this)" class="absolute right-3 top-3 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-white/10 hover:text-white h-8 w-8 text-zinc-400 bg-transparent z-10" title="Copy code">
-                <svg class="icon-copy w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                <svg class="icon-check w-4 h-4 text-green-500 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              </button>
-              <pre class="p-4 pr-14 text-sm font-mono text-zinc-50 overflow-x-auto"><code>pip install https://github.com/mrexodia/ida-pro-mcp/archive/refs/heads/main.zip
-ida-pro-mcp --install</code></pre>
-            </div>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="relative pl-8 md:pl-10">
-            <div class="absolute -left-4 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-sm font-medium">4</div>
-            <h3 class="text-xl font-semibold tracking-tight mb-2">Choose transport</h3>
-            <p class="text-muted-foreground text-sm">Select <strong class="text-foreground">Streamable HTTP (recommended)</strong> and <strong class="text-foreground">Global (user-level)</strong>.</p>
-          </div>
-
-          <!-- Step 5 -->
-          <div class="relative pl-8 md:pl-10">
-            <div class="absolute -left-4 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-sm font-medium">5</div>
-            <h3 class="text-xl font-semibold tracking-tight mb-4">Configure Codex in VS Code</h3>
-            
-            <div class="relative group rounded-lg border border-border bg-[#0d1117] overflow-hidden">
-              <button onclick="copyCode(this)" class="absolute right-3 top-3 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-white/10 hover:text-white h-8 w-8 text-zinc-400 bg-transparent z-10" title="Copy code">
-                <svg class="icon-copy w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                <svg class="icon-check w-4 h-4 text-green-500 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              </button>
-              <pre class="p-4 pr-14 text-sm font-mono text-zinc-50 overflow-x-auto"><code>{
-  "mcpServers": {
-    "ida-pro-mcp": {
-      "type": "http",
-      "url": "http://127.0.0.1:13337/mcp"
-    }
-  }
-}</code></pre>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Troubleshooting Section -->
-      <section id="troubleshooting" class="container mx-auto px-4 sm:px-8 py-16 border-t border-border/40 bg-muted/20">
-        <div class="flex flex-col space-y-2 mb-8">
-          <h2 class="text-3xl font-bold tracking-tight">Troubleshooting</h2>
-          <p class="text-muted-foreground">Common issues and how to fix them.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm p-6">
-            <div class="flex items-center gap-2 mb-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width
+        <h1 class="text-3xl font-extrabold tracking-tight sm:text-5xl md:text-6xl max-w-3xl leading
