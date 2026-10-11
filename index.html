@@ -97,53 +97,73 @@
 
           <div class="steps">
             <div class="step">
-              <span class="step-no">01</span>
-              <div>
-                <h3>Activate IDA library</h3>
+              <div class="step-header">
+                <span class="step-no">01</span>
+                <div class="step-content">
+                  <h3>Activate IDA library</h3>
+                </div>
+              </div>
+              <div class="step-code-wrapper">
                 <pre><code>uv run "/Applications/IDA Professional 9.4.app/Contents/MacOS/idalib/python/py-activate-idalib.py"</code></pre>
+                <button class="btn-copy" onclick="copyCode(this)">📋 Copy</button>
               </div>
             </div>
 
             <div class="step">
-              <span class="step-no">02</span>
-              <div>
-                <h3>Install dependencies</h3>
+              <div class="step-header">
+                <span class="step-no">02</span>
+                <div class="step-content">
+                  <h3>Install dependencies</h3>
+                </div>
+              </div>
+              <div class="step-code-wrapper">
                 <pre><code>cd ida-pro-mcp
 uv sync</code></pre>
+                <button class="btn-copy" onclick="copyCode(this)">📋 Copy</button>
               </div>
             </div>
 
             <div class="step">
-              <span class="step-no">03</span>
-              <div>
-                <h3>Install the IDA plugin</h3>
+              <div class="step-header">
+                <span class="step-no">03</span>
+                <div class="step-content">
+                  <h3>Install the IDA plugin</h3>
+                </div>
+              </div>
+              <div class="step-code-wrapper">
                 <pre><code>pip install https://github.com/mrexodia/ida-pro-mcp/archive/refs/heads/main.zip
 ida-pro-mcp --install</code></pre>
+                <button class="btn-copy" onclick="copyCode(this)">📋 Copy</button>
               </div>
             </div>
 
             <div class="step">
-              <span class="step-no">04</span>
-              <div>
-                <h3>Choose transport</h3>
-                <p>Select <strong>Streamable HTTP (recommended)</strong> and <strong>Global (user-level)</strong>.</p>
+              <div class="step-header">
+                <span class="step-no">04</span>
+                <div class="step-content">
+                  <h3>Choose transport</h3>
+                  <p>Select <strong>Streamable HTTP (recommended)</strong> and <strong>Global (user-level)</strong>.</p>
+                </div>
               </div>
             </div>
 
             <div class="step">
-              <span class="step-no">05</span>
-              <div>
-                <h3>Configure Codex in VS Code</h3>
+              <div class="step-header">
+                <span class="step-no">05</span>
+                <div class="step-content">
+                  <h3>Configure Codex in VS Code</h3>
+                </div>
+              </div>
+              <div class="step-code-wrapper">
                 <pre><code>{
-  "github.copilot.advanced": {
-    "mcpServers": {
-      "ida-pro-mcp": {
-        "type": "http",
-        "url": "http://127.0.0.1:13337/mcp"
-      }
+  "mcpServers": {
+    "ida-pro-mcp": {
+      "type": "http",
+      "url": "http://127.0.0.1:13337/mcp"
     }
   }
 }</code></pre>
+                <button class="btn-copy" onclick="copyCode(this)">📋 Copy</button>
               </div>
             </div>
           </div>
@@ -182,5 +202,28 @@ ida-pro-mcp --install</code></pre>
         <a href="https://github.com/mrexodia/ida-pro-mcp" target="_blank" rel="noreferrer">IDA Pro MCP Repo</a>
       </div>
     </footer>
+
+    <script>
+      function copyCode(button) {
+        const code = button.previousElementSibling.querySelector('code');
+        const text = code.textContent;
+
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = button.textContent;
+          button.textContent = '✓ Copied';
+          button.classList.add('copied');
+
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.classList.remove('copied');
+          }, 2000);
+        }).catch(() => {
+          button.textContent = 'Copy failed';
+          setTimeout(() => {
+            button.textContent = '📋 Copy';
+          }, 2000);
+        });
+      }
+    </script>
   </body>
 </html>
