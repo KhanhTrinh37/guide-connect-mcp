@@ -46,14 +46,12 @@ Create a workspace config such as `.vscode/settings.json`:
 
 ```json
 {
-  "github.copilot.advanced": {
     "mcpServers": {
       "ida-pro-mcp": {
         "type": "http",
         "url": "http://127.0.0.1:13337/mcp"
       }
     }
-  }
 }
 ```
 
