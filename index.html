@@ -105,6 +105,23 @@
   </head>
   <body class="min-h-screen flex flex-col">
     
+    <!-- Navbar Component -->
+    <header class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div class="container mx-auto px-4 sm:px-8 max-w-5xl h-14 flex items-center justify-between">
+        <div class="flex items-center gap-2 font-bold tracking-tight">
+          <div class="flex h-6 w-6 items-center justify-center rounded bg-primary text-primary-foreground">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+          </div>
+          <span class="hidden sm:inline-block">Guide Connect MCP</span>
+        </div>
+        <nav class="flex items-center gap-6 text-sm font-medium text-muted-foreground">
+          <a href="#overview" class="transition-colors hover:text-foreground">Overview</a>
+          <a href="#setup" class="transition-colors hover:text-foreground">Setup</a>
+          <a href="#troubleshooting" class="transition-colors hover:text-foreground">Troubleshooting</a>
+        </nav>
+      </div>
+    </header>
+
     <main class="flex-1 container mx-auto px-4 sm:px-8 max-w-5xl">
       
       <!-- Hero Section -->
